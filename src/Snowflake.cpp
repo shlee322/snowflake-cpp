@@ -34,14 +34,18 @@ int64_t Snowflake::generate()
 	//머신 10bit
 	value |= this->machine & 0x3FF << 12;
 
+	/*
 	//시간이 변하면 증가값 초기화
 	if(time!=this->time) {
 		this->time = time;
 		this->sequence = 0;
-	}
+	}*/
 
 	//증가값 12bit
 	value |= this->sequence++ & 0xFFF;
+	if(this->sequence == 0x1000) {
+		this->sequence = 0;
+	}
 
 	return value;
 }
