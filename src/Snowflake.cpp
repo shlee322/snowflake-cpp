@@ -28,20 +28,20 @@ int64_t Snowflake::generate()
 	int64_t value = 0;
 	uint64_t time = getTime() - this->epoch;
 
-	//½Ã°£ 41bit
+	//ì‹œê°„ 41bit
 	value |= time << 22;
 
-	//¸Ó½Å 10bit
+	//ë¨¸ì‹  10bit
 	value |= this->machine & 0x3FF << 12;
 
 	/*
-	//½Ã°£ÀÌ º¯ÇÏ¸é Áõ°¡°ª ÃÊ±âÈ­
+	//ì‹œê°„ì´ ë³€í•˜ë©´ ì¦ê°€ê°’ ì´ˆê¸°í™”
 	if(time!=this->time) {
 		this->time = time;
 		this->sequence = 0;
 	}*/
 
-	//Áõ°¡°ª 12bit
+	//ì¦ê°€ê°’ 12bit
 	value |= this->sequence++ & 0xFFF;
 	if(this->sequence == 0x1000) {
 		this->sequence = 0;
